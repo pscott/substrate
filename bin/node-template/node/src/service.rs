@@ -42,9 +42,7 @@ macro_rules! new_full_start {
 					.ok_or_else(|| sc_service::Error::SelectChainRequired)?;
 
 				let (grandpa_block_import, grandpa_link) =
-					grandpa::block_import::<_, _, _, node_template_runtime::RuntimeApi, _>(
-						client.clone(), &*client, select_chain
-					)?;
+					grandpa::block_import(client.clone(), &*client, select_chain)?;
 
 				let aura_block_import = sc_consensus_aura::AuraBlockImport::<_, _, _, AuraPair>::new(
 					grandpa_block_import.clone(), client.clone(),
