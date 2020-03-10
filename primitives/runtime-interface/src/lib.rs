@@ -271,6 +271,7 @@ pub mod host;
 #[cfg(any(not(feature = "std"), doc))]
 pub mod wasm;
 pub mod pass_by;
+pub mod stats;
 
 mod util;
 

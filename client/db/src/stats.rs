@@ -98,7 +98,7 @@ impl StateUsageStats {
 	}
 
 	/// Merge state machine usage info.
-	pub fn merge_sm(&self, info: sp_stats::UsageInfo) {
+	pub fn merge_sm(&self, info: sp_runtime_interface::stats::UsageInfo) {
 		self.reads.fetch_add(info.reads.ops, AtomicOrdering::Relaxed);
 		self.bytes_read.fetch_add(info.reads.bytes, AtomicOrdering::Relaxed);
 		self.writes_nodes.fetch_add(info.nodes_writes.ops, AtomicOrdering::Relaxed);
@@ -110,8 +110,8 @@ impl StateUsageStats {
 	}
 
 	/// Returns the collected `UsageInfo` and resets the internal state.
-	pub fn take(&self) -> sp_stats::UsageInfo {
-		use sp_stats::UsageUnit;
+	pub fn take(&self) -> sp_runtime_interface::stats::UsageInfo {
+		use sp_runtime_interface::stats::UsageUnit;
 
 		fn unit(ops: &AtomicU64, bytes: &AtomicU64) -> UsageUnit {
 			UsageUnit {
@@ -120,7 +120,7 @@ impl StateUsageStats {
 			}
 		}
 
-		sp_stats::UsageInfo {
+		sp_runtime_interface::stats::UsageInfo {
 			reads: unit(&self.reads, &self.bytes_read),
 			writes: unit(&self.writes, &self.bytes_written),
 			nodes_writes: unit(&self.writes_nodes, &self.bytes_written_nodes),

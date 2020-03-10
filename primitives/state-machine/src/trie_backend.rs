@@ -21,7 +21,7 @@ use hash_db::Hasher;
 use sp_trie::{Trie, delta_trie_root, default_child_trie_root, child_delta_trie_root};
 use sp_trie::trie_types::{TrieDB, TrieError, Layout};
 use sp_core::storage::ChildInfo;
-use sp_stats::{StateMachineStats, UsageInfo};
+use sp_runtime_interface::stats::{StateMachineStats, UsageInfo};
 use codec::{Codec, Decode};
 use crate::{
 	StorageKey, StorageValue, Backend,

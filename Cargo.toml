@@ -146,7 +146,6 @@ members = [
 	"primitives/std",
 	"primitives/version",
 	"primitives/state-machine",
-	"primitives/stats",
 	"primitives/timestamp",
 	"primitives/test-primitives",
 	"primitives/transaction-pool",

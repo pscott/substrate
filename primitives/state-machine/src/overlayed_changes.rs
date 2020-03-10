@@ -23,7 +23,7 @@ use crate::{
 		State as ChangesTrieState,
 	},
 };
-use sp_stats::StateMachineStats;
+use sp_runtime_interface::stats::StateMachineStats;
 
 #[cfg(test)]
 use std::iter::FromIterator;

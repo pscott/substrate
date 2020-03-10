@@ -75,7 +75,7 @@ use sp_state_machine::{
 	StorageCollection, ChildStorageCollection,
 	backend::Backend as StateBackend,
 };
-use sp_stats::{StateMachineStats, UsageInfo as StateUsageInfo};
+use sp_runtime_interface::stats::{StateMachineStats, UsageInfo as StateUsageInfo};
 use crate::utils::{DatabaseType, Meta, db_err, meta_keys, read_db, read_meta};
 use crate::changes_tries_storage::{DbChangesTrieStorage, DbChangesTrieStorageTransaction};
 use sc_client::leaves::{LeafSet, FinalizationDisplaced};

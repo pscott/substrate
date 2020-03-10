@@ -27,7 +27,7 @@ use sp_trie::{
 };
 pub use sp_trie::Recorder;
 pub use sp_trie::trie_types::{Layout, TrieError};
-use sp_stats::{StateMachineStats, UsageInfo};
+use sp_runtime_interface::stats::{StateMachineStats, UsageInfo};
 use crate::trie_backend::TrieBackend;
 use crate::trie_backend_essence::{Ephemeral, TrieBackendEssence, TrieBackendStorage};
 use crate::{Error, ExecutionError, Backend};

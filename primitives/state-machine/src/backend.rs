@@ -22,7 +22,7 @@ use codec::Encode;
 
 use sp_core::storage::{ChildInfo, OwnedChildInfo};
 use sp_trie::{TrieMut, MemoryDB, trie_types::TrieDBMut};
-use sp_stats::{StateMachineStats, UsageInfo};
+use sp_runtime_interface::stats::{StateMachineStats, UsageInfo};
 
 use crate::{
 	trie_backend::TrieBackend,
