@@ -23,6 +23,7 @@
 //! This crate exposes the main [`Externalities`] trait.
 
 use std::any::{Any, TypeId};
+use sp_runtime_interface::stats::UsageInfo;
 
 use sp_storage::{ChildStorageKey, ChildInfo};
 
@@ -197,7 +198,7 @@ pub trait Externalities: ExtensionStore {
 
 
 	/// SCOTT
-	fn bench_usage_info(&self);
+	fn bench_usage_info(&self) -> UsageInfo;
 
 	/// Get the change trie root of the current storage overlay at a block with given parent.
 	/// `parent` is expects a SCALE encoded hash.
