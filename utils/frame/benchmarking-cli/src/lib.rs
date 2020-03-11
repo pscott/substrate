@@ -21,6 +21,7 @@ use sc_cli::{ExecutionStrategy, WasmExecutionMethod, VersionInfo};
 use sc_client_db::BenchmarkingState;
 use sc_service::{RuntimeGenesis, ChainSpecExtension, Configuration, ChainSpec};
 use sc_executor::{NativeExecutor, NativeExecutionDispatch};
+use sp_state_machine::backend::Backend;
 use codec::{Encode, Decode};
 use frame_benchmarking::BenchmarkResults;
 
@@ -146,6 +147,8 @@ impl BenchmarkCmd {
 				// Print the table header
 				results[0].0.iter().for_each(|param| print!("{:?},", param.0));
 
+				let usage_info = state.usage_info();
+				print!("{:?}", usage_info);
 				print!("extrinsic_time,storage_root_time\n");
 				// Print the values
 				results.iter().for_each(|result| {

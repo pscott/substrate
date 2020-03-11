@@ -249,6 +249,10 @@ impl<B: BlockT> StateBackend<HashFor<B>> for BenchmarkingState<B> {
 		None
 	}
 
+	fn usage_info(&self) -> sp_state_machine::UsageInfo {
+		sp_state_machine::UsageInfo::empty()
+	}
+
 	fn commit(&self, storage_root: <HashFor<B> as Hasher>::Out, mut transaction: Self::Transaction)
 		-> Result<(), Self::Error>
 	{
