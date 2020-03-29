@@ -726,7 +726,7 @@ impl WasmInstance for WasmiInstance {
 				error!(target: "wasm-executor", "snapshot restoration failed: {}", e);
 				e
 			})?;
-		call_in_wasm_module(
+		let res = call_in_wasm_module(
 			&self.instance,
 			&self.memory,
 			method,
@@ -734,7 +734,9 @@ impl WasmInstance for WasmiInstance {
 			self.host_functions.as_ref(),
 			self.allow_missing_func_imports,
 			self.missing_functions.as_ref(),
-		)
+		);
+		self.memory.erase()?;
+		res
 	}
 
 	fn get_global_const(&self, name: &str) -> Result<Option<sp_wasm_interface::Value>, Error> {

@@ -145,6 +145,18 @@ impl InstanceWrapper {
 			_ => Err("Unknown value type".into()),
 		}
 	}
+
+	/// Sets every byte in the memory to zero.
+	pub fn erase(&self) -> Result<()> {
+		unsafe {
+			let mem = self.memory_as_slice_mut();
+			for i in 0..mem.len() {
+				mem[i] = 0;
+			}
+		}
+
+		Ok(())
+	}
 }
 
 /// Extract linear memory instance from the given instance.

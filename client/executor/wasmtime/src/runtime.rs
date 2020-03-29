@@ -77,11 +77,14 @@ impl WasmInstance for WasmtimeInstance {
 		// TODO: reuse the instance and reset globals after call
 		// https://github.com/paritytech/substrate/issues/5141
 		let instance = Rc::new(InstanceWrapper::new(&self.module, &self.imports, self.heap_pages)?);
-		call_method(
+		let instance_clone = instance.clone();
+		let res = call_method(
 			instance,
 			method,
 			data,
-		)
+		);
+		instance_clone.erase()?;
+		res
 	}
 
 	fn get_global_const(&self, name: &str) -> Result<Option<Value>> {
