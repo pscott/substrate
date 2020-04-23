@@ -77,7 +77,7 @@ impl ImportBlocksCmd {
 		};
 
 		builder(config)?
-			.import_blocks(file, false)
+			.import_blocks(file, false, true)
 			.await
 			.map_err(Into::into)
 	}

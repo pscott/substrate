@@ -131,17 +131,20 @@ impl<
 						count = Some(c);
 						c
 					} else {
+						// Should we modify export block to have it export the number of blocks?
 						info!("📦 Importing unknown number of blocks from JSON format");
+						0
 					}
 				}
 			};
 
 			// Read blocks from the input.
 			if (binary && read_block_count < count) || (!binary) {
-				let block_result: Result<Self::Block, String>;
+				let block_result: Result<SignedBlock::<Self::Block>, String>;
 				if binary {
 					block_result = SignedBlock::<Self::Block>::decode(&mut io_reader_input).map_err(|e| e.to_string());
 				} else {
+					// need to use stream rather than from_reader.
 					block_result = serde_json::from_reader(io_reader_input).map_err(|e| e.to_string());
 				}
 				match block_result {
@@ -301,7 +304,7 @@ impl<
 				1u64.encode_to(&mut buf);
 				block.encode_to(&mut buf);
 				let reader = std::io::Cursor::new(buf);
-				self.import_blocks(reader, true)
+				self.import_blocks(reader, true, true)
 			}
 			Ok(None) => Box::pin(future::err("Unknown block".into())),
 			Err(e) => Box::pin(future::err(format!("Error reading block: {:?}", e).into())),
