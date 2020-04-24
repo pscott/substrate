@@ -26,6 +26,7 @@ use sp_runtime::traits::{
 	Block as BlockT, NumberFor, One, Zero, Header, SaturatedConversion
 };
 use sp_runtime::generic::{BlockId, SignedBlock};
+use sp_runtime::traits::MaybeSerializeDeserialize;
 use codec::{Decode, Encode, IoReader};
 use sc_client::{Client, LocalCallExecutor};
 use sp_consensus::{
@@ -51,7 +52,7 @@ impl<
 	Client<TBackend, LocalCallExecutor<TBackend, NativeExecutor<TExecDisp>>, TBl, TRtApi>,
 	TFchr, TSc, TImpQu, TFprb, TFpp, TExPool, TRpc, Backend
 > where
-	TBl: BlockT,
+	TBl: BlockT + MaybeSerializeDeserialize,
 	TBackend: 'static + sc_client_api::backend::Backend<TBl> + Send,
 	TExecDisp: 'static + NativeExecutionDispatch,
 	TImpQu: 'static + ImportQueue<TBl>,
@@ -145,7 +146,7 @@ impl<
 					block_result = SignedBlock::<Self::Block>::decode(&mut io_reader_input).map_err(|e| e.to_string());
 				} else {
 					// need to use stream rather than from_reader.
-					block_result = serde_json::from_reader(io_reader_input).map_err(|e| e.to_string());
+					block_result = serde_json::from_reader(io_reader_input.0).map_err(|e| e.to_string());
 				}
 				match block_result {
 					Ok(signed) => {
